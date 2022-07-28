@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .er{
+            color: red;
+        }
+        .mg{
+            color: rgb(47, 61, 255);
+        }
+    </style>
+</head>
+<body>
+    <h1>Register page</h1>
+    <form action="{% url 'register' %}" method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="er">{{error}}</p>
+        {% endfor %}
+        {% endif %}
+            {% for fm in form %}
+              {{fm.label_tag}} {{fm}} {{fm.errors|striptags}}<br><br>
+            {%  endfor %}
+      <input type="submit" value="submit"> <br>
+
+      
+    </form><br><br>
+
+    {% if messages %}
+        {% for msg in messages %}
+        <small class="mg" {% if messages.tags %} class="{{msg.tags}}"
+        {% endif %}>  {{msg}} </small>
+        {% endfor %}
+        {% endif %}<br><br>
+    <a href={% url "login_to" %}>Login</a>
+</body>
+</html>
